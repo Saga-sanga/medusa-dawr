@@ -52,6 +52,33 @@ const plugins = [
       },
     },
   },
+  {
+    resolve: `medusa-plugin-meilisearch`,
+    options: {
+      // config object passed when creating an instance
+      // of the MeiliSearch client
+      config: {
+        host: process.env.MEILISEARCH_HOST,
+        apiKey: process.env.MEILISEARCH_API_KEY,
+      },
+      settings: {
+        products: {
+          indexSettings: {
+            searchableAttributes: ["title", "description", "variant_sku"],
+            displayedAttributes: [
+              "id",
+              "title",
+              "description",
+              "variant_sku",
+              "thumbnail",
+              "handle",
+            ],
+          },
+          primaryKey: "id",
+        },
+      },
+    },
+  },
 ];
 
 const modules = {
@@ -77,7 +104,7 @@ const projectConfig = {
   database_url: DATABASE_URL,
   admin_cors: ADMIN_CORS,
   // Uncomment the following lines to enable REDIS
-  redis_url: REDIS_URL,
+  // redis_url: REDIS_URL,
   worker_mode: process.env.MEDUSA_WORKER_MODE,
 };
 
